@@ -1,0 +1,897 @@
+%!TEX program = xelatex
+\documentclass[12pt]{article}
+
+% ---------- IDIOMA Y FUENTE ----------
+\usepackage{fontspec} 
+\usepackage[spanish, es-tabla]{babel} 
+% --- Cambiar "Cuadro" por "Tabla" ---
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+\setmainfont{TeX Gyre Termes}
+
+% ---------- PAQUETES MATEMÁTICOS Y FÍSICOS ----------
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{physics}
+
+% ---------- GRÁFICOS Y COLORES ----------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{babel} 
+\usepackage{tikz-3dplot}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usetikzlibrary{arrows.meta} 
+\usetikzlibrary{shapes.geometric} 
+\usetikzlibrary{decorations.markings}
+
+% ---------- CÓDIGO (LISTINGS) ----------
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,          
+    breakatwhitespace=false,         
+    breaklines=true,                     
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                        
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    language=Python                      
+}
+\lstset{style=pythonstyle}
+
+% ---------- DISEÑO Y ESTILO ----------
+\usepackage{geometry}
+\geometry{letterpaper, margin=2cm, headheight=15pt}
+\usepackage{fancyhdr} 
+\usepackage{lastpage}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+% ---------- TCOLORBOX ----------
+\usepackage[most,skins,theorems]{tcolorbox}
+
+% --- Caja para Definiciones Formales ---
+\newtcolorbox{definicion}[1][]{
+  enhanced,
+  breakable, 
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title={Definición: #1},
+  arc=2mm,
+  boxrule=0.8pt,
+  drop shadow=black!10!white
+}
+
+% --- Caja para Tareas ---
+\newtcolorbox{problemas}[1][]{
+  enhanced,
+  breakable, 
+  colback=violet!6!white,       
+  colframe=violet!45!white,     
+  coltitle=violet!40!black,     
+  fonttitle=\bfseries,
+  title={Problemas: #1},
+  arc=2.5mm,                    
+  boxrule=0.8pt,
+  drop shadow=black!8!white     
+}
+
+% --- Caja Libre Verde Menta ---
+\newtcolorbox{cajaflex}[1][]{
+  enhanced,
+  breakable, 
+  colback=teal!5!white,       
+  colframe=teal!50!black,     
+  coltitle=teal!10!white,     
+  fonttitle=\bfseries,
+  code={\ifblank{#1}{}{\tcbset{title={#1}}}},
+  arc=2.5mm,                  
+  boxrule=0.8pt,
+  drop shadow=black!8!white   
+}
+
+% ---------- TABLAS Y ELEMENTOS EXTRA ----------
+\usepackage{booktabs}   
+\usepackage{pifont}     
+\usepackage{array}      
+\usepackage{caption}    
+\newcommand{\lapiz}{\ding{46}\ }
+
+% ---------- CONFIGURACIÓN DE ENCABEZADOS (ITM) ----------
+\newcommand{\logo}{\includegraphics[height=3cm]{escudoitm}}
+\newcommand{\escola}{Facultad de Ciencias Exactas y Aplicadas}
+\newcommand{\disc}{Física Computacional 1}
+\newcommand{\auth}{Robinson Longas Bedoya}
+\newcommand{\emaill}{\url{robinsonlongas@itm.edu.co}}
+\newcommand{\email}{\url{robinsonlongas3586@correo.itm.edu.co}}
+\newcommand{\cabec}{Física Computacional 1}
+
+% ---------- ENLACES Y PDF ----------
+\usepackage{hyperref}
+
+\definecolor{myblue}{RGB}{20, 20, 120}
+\definecolor{myred}{RGB}{220, 30, 30}
+\definecolor{mygreen}{RGB}{0, 130, 60}
+
+% Personalización de nombres para \autoref
+\def\tableautorefname{Tabla}
+\def\figureautorefname{Figura}
+\def\equationautorefname{Ecuación}
+\def\sectionautorefname{Sección}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={Física Computacional 1 -- Robinson Longas Bedoya},
+    pdfauthor={Robinson Longas Bedoya}
+}
+
+% Configuración de estilos de página
+\pagestyle{fancy}
+\fancyhf{} 
+
+\fancypagestyle{firstpage}{
+    \fancyhead[L]{\logo}
+    \fancyhead[R]{
+        \textsf{\escola \\} 
+        \textsf{\disc \\}
+        \textsf{\auth \\}
+        \textsf{\email \\} 
+        \textsf{\emaill}     
+    }
+    \fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0pt} 
+    \renewcommand{\footrulewidth}{0.4pt} 
+}
+
+\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email\ -- \emaill}}
+\fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\setlength{\parskip}{0.3em}
+
+\begin{document}
+		\thispagestyle{firstpage}
+		\vspace*{1.5cm}
+	
+	\begin{center}
+		\rule{\textwidth}{0.4pt}
+	\end{center}
+	
+	\begin{itemize}[leftmargin=*,label=\textcolor{red}{\ensuremath{\blacktriangleright}}]
+		\item \textbf{Funciones}
+		\item \textbf{Módulos}
+	\end{itemize}
+	
+	\noindent
+	\textbf{\underline{Bibliografía}}
+	\begin{itemize}[leftmargin=*, label={\textcolor{blue}{$\bullet$}}]
+		\item \textit{Computational Physics, Capítulo 2}, Mark Newman.
+		\item \textit{Introducción a la programación con Python. Capítulo 6}, Andrés Marzal, Isabel Gracia y Pedro García.
+        \item \textit{Programming for computations- Python,  Capítulo 4 y sección: 5.4}, Evein Linge and Petter Langtangen. 
+        \item \textit{Computational mathematics: An introduction to Numerical Analysis and Scientific Computing  with Python.
+            Sección: 1.5}, Dimitrios Mitsotakis. 
+    \end{itemize}
+     
+    
+
+\section*{\textcolor{red}{\textit{Funciones}}}
+	Hasta el momento, utilizamos las funciones  que traen definidas las 
+    librerías de Python. Por ejplo,  \lstinline|sqrt|, \lstinline|cos|, 
+    \lstinline|arcos|, por nombrar unas cuantas. Sin embargo, existen muchas 
+    situaciones en Física Computacional, en las que necesitamos definir nuestras
+    propias funciones.
+    
+    La estructura básica para escribir funciones en Python es:
+    %
+	\begin{lstlisting}
+def la_funcion(parametro1,parametro2=valor2,...):
+	''' Ayuda de la función '''
+	declaraciones
+	return valor_funcion
+	\end{lstlisting}
+	%
+	El texto que se escriba en la '''Ayuda de la función''' sirve para indicarnos luego 
+	de que se trata la función y queda definido como el atributo del objeto: 
+	\lstinline|la_funcion.__doc__| o \lstinline|la_funcion?| en Ipython.
+	El argumento opcional valor2 es el valor que adquiere el parámetro si la 
+	función es llamada sin especificar el parametro2. 
+
+    Por ejemplo, $f(x) = 8x^7 - x^3 + x^2 - 1$,
+    %
+\begin{lstlisting}[language=Python]
+In [1]: def f(x):
+   ...:     y = 8*x**7 - x**3 + x**2 -1
+   ...:     return y
+   ...: 
+
+In [2]: f(0)
+Out[2]: -1
+
+In [3]: f(-1)
+Out[3]: -7
+
+In [4]: def f(x):
+   ...:     return 8*x**7 - x**3 + x**2 -1
+   ...: 
+
+In [5]: f(-1)
+Out[5]: -7
+
+In [6]: f(0)
+Out[6]: -1
+\end{lstlisting}
+% 
+Note que se puede omitir la definición de la variable $y$ poniendo la operación después del \lstinline|return|.
+En ocasiones, queremos entregar un valor por defecto a alguna de las variables. Por ejemplo,
+\begin{lstlisting}[language=Python]
+In [1]: def f(x):
+   ...:     return 8*x**7 - x**3 + x**2 -1
+   ...: 
+
+In [2]: f(-1)
+Out[2]: -7
+
+In [3]: f(0)
+Out[3]: -1
+In [4]: def maximo(x,y=0):
+   ...:     if x >=y:
+   ...:         return x
+   ...:     else:
+   ...:         return y
+   ...: 
+
+In [5]: maximo(1)
+Out[5]: 1
+
+In [6]: maximo(2)
+Out[6]: 2
+
+In [7]: maximo(2),5
+Out[7]: (2, 5)
+
+In [8]: maximo(2,5)
+Out[8]: 5
+
+In [9]: maximo(7,5)
+Out[9]: 7
+
+In [10]: maximo(0,5)
+Out[10]: 5
+
+In [11]: maximo(0)
+Out[11]: 0
+
+In [12]: maximo(-1)
+Out[12]: 0
+
+In [13]: a=50; b=100;
+
+In [14]: maximo(a,b)
+Out[14]: 100
+\end{lstlisting}
+% 
+    
+Como último ejemplo, queremos calcular el factorial de un número, 
+    $$ n! = 1 \times 2 \times 3 \times ....( n - 2) \times (n - 1) \times n = \prod_{k=1}^{n} k \,.$$
+    
+    Es decir, $3! = 1\times 2\times 3 = 6$.
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{factorial.py}]
+""" Este es un ejemplo del uso de funciones """
+
+def factorial(n):
+    ''' Calcula el factorial de un número entero'''
+    f = 1
+    for i in range(1,n+1):
+        f = i * f
+    return f
+
+### acá comenzamos el programa
+
+a = int(input("ingrese el número entero del que quiere conocer el factrorial\n"))
+
+if a>=0:
+    elfatorial = factorial(a)
+    print(f"El factorial del número que entraste es: {elfatorial} ")
+else:
+    print("No es la función Gamma, el número debe ser entero mayor o igual a cero.")
+\end{lstlisting}
+%  
+
+El ejemplo del cálculo del factorial nos permite analizar paso a paso los componentes esenciales 
+de una función en Python y la dinámica de ejecución dentro del programa:
+
+\begin{enumerate}
+    \item \textbf{Definición de la función (\lstinline|def|):} 
+    La instrucción \lstinline|def factorial(n):| le indica al intérprete que estamos creando un bloque de código reutilizable llamado \lstinline|factorial|, el cual espera recibir un argumento llamado \lstinline|n| (el parámetro de entrada).
+
+    \item \textbf{Documentación o Docstring:} 
+    La cadena dentro de triples comillas \lstinline|'''Calcula el factorial de un número entero'''| constituye el \textit{docstring}. Es una práctica fundamental en software científico, ya que permite consultar la ayuda del objeto mediante \lstinline|factorial?| o \lstinline|help(factorial)| en entornos interactivos como IPython o Jupyter.
+
+    \item \textbf{Variables locales y acumuladores:} 
+    Dentro de la función se define \lstinline|f = 1|. Esta variable es de \textbf{ámbito local} (\textit{local scope}), lo que significa que solo existe mientras la función se está ejecutando. El bucle \lstinline|for i in range(1, n + 1):| actualiza el acumulador multiplicando \lstinline|f = i * f| (o equivalentemente \lstinline|f *= i|) desde $i = 1$ hasta $i = n$.
+
+    \item \textbf{Valor de retorno (\lstinline|return|):} 
+    La sentencia \lstinline|return f| finaliza la ejecución de la función y devuelve el resultado computado al punto exacto del programa donde fue invocada. Sin un \lstinline|return|, la función devolvería \lstinline|None|.
+
+    \item \textbf{Flujo del programa principal y paso de parámetros:} 
+    En la sección principal del script:
+    \begin{itemize}
+        \item Se captura la entrada del usuario mediante \lstinline|input()| y se convierte explicitamente a entero con \lstinline|int()|.
+        \item Se evalúa mediante una estructura condicional (\lstinline|if a >= 0|) que el número sea no negativo.
+        \item En la línea \lstinline|elfactorial = factorial(a)|, la variable externa \lstinline|a| pasa su valor al parámetro local \lstinline|n|. El resultado devuelto por \lstinline|return| se almacena en la nueva variable \lstinline|elfactorial|.
+        \item Finalmente, se despliega el resultado mediante una 
+        cadena formateada: \lstinline|f"El factorial del número que entraste es: {elfactorial}"|.
+    \end{itemize}
+\end{enumerate}
+
+\begin{cajaflex}[Observación]
+Note que para usar la función debo hacerlo afuera de su definición, después del comentario 
+\lstinline|### acá comienza el programa|. Python permite el uso la estructura 
+\lstinline|if__name__=="__main"":|. Lo veremos después cuando hablemos de módulos.
+\end{cajaflex}
+
+\subsection*{\textcolor{blue}{\textit{Ejemplo:}}}
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{tiempo\_vuelo\_v3.py}]
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def altura(y0, v0, t):
+    """Esta función entrega la altura de una bola en función del tiermpo'
+    Parametros: altura inicial y0, velocidad inicial v0 y tiempo"""
+    g = 9.8 # aceleración gravitacional de la tierra en m/s^2
+    return  y0 + v0 * t - 1/2. * g * t**2 
+
+
+#--- programa principal ---------------
+print('----------------------------------')
+y0 = float(input('Entre la altura de lanzamiento en metros\t'))
+v0 = float(input('Entre la rapidez con la que lo lanzas en m/s\t'))
+N = int(input("Entre el número de puntos para el paso del tiempo\t")) 
+print('----------------------------------')
+g = 9.8 # aceleración gravitacional de la tierra en m/s^2
+
+#--------- solucion exacta ------------
+T = (v0 + np.sqrt( v0**2 + 2*g*y0) )/g
+#------------------------
+
+t_i = 0.0 # tiempo inicial
+t_f = 10. #tiempo final
+t = np.linspace(t_i, t_f, N) # arreglo con los tiempos
+
+# llamos a la función altura
+y = altura(y0,v0,t) 
+
+# con el while buscamos que esa altura siempre sea positiva. 
+i = 0
+while y[i] >=0:
+    i = i +1
+
+t_num=t[i]
+
+# calculo de errores
+
+err_abs = abs(t_num - T)
+err_rel = (err_abs / T) * 100    
+
+print(f"El tiempo que queda la bola en el aire: {t_num:.4f} segundos")
+print(f"El tiempo exacto en el que cae la bola es : {T:.4f} segundos")
+print("\n--- ANÁLISIS DE ERROR Y PRECISIÓN ---")
+print(f"Error absoluto (|t_num - T|)  : {err_abs:.6f} s")
+print(f"Error relativo (%)            : {err_rel:.4f} %")
+print(f"La altura para ese tiempo es: {y[i]:.4e} metros")
+\end{lstlisting}
+%  
+Note que la aceleración gravitacional se definió en el interior de la función, esto la 
+convierte en una variable local. Eso significa que, para calcular la solución 
+exacta \lstinline|T = (v0 + np.sqrt( v0**2 + 2*g*y0) )/g| debo volver a definir
+$g$ afuera de la función. Mucho cuidado con el orden en que se entran los argumentos de la función,
+\lstinline|altura(v0,y0,t)| no genera error pero devuelve un resultado incorrecto
+fisicamente. 
+
+Para ilustrar el concepto de las variables locales y globales, considere el siguiente ejemplo
+\begin{lstlisting}[language=Python]
+In [16]: def variables(x,y):
+    ...:     temp = x
+    ...:     x = y
+    ...:     y= temp
+    ...:     print('Estas son variables locales: x =',x, 'y=',y)
+    ...:     return x,y
+
+In [17]: x = 2; y= 3
+
+In [18]: variables(x,y);
+Estas son variables locales: x = 3 y= 2
+
+In [19]: print("Estas son las variables globales: x=",x,'y=',y)
+Estas son las variables globales: x= 2 y= 3
+\end{lstlisting}
+% 
+
+\subsection*{\textcolor{blue}{\textit{La función Lambda}}}
+En ocasiones simplemente queremos definir una fiunción corta, como por ejemplo
+$f(x) = x^3 - x$ o $g(x)= x^2$.
+\begin{lstlisting}
+In [1]: g = lambda x: x**2
+
+In [2]: g(-1)
+Out[2]: 1
+
+In [3]: g(1)
+Out[3]: 1
+
+In [4]: g(45)
+Out[4]: 2025
+
+In [5]: def g(x): # equivalente al uso de lambda
+   ...:     return x**2
+   ...:     
+\end{lstlisting}
+
+\section*{\textcolor{red}{\textit{Módulos en Python}}}
+Un módulo es un archivo que contiene un conjunto de funciones y su estructura 
+	está dada por la siguiente sintaxis:
+	%
+	\begin{lstlisting}
+def la_funcion1(parametro1,parametro2=valor2,...):
+	''' Ayuda de la función '''
+	declaraciones
+	return valor_funcion
+
+def la_funcion2(parametro1,parametro2=valor2,...):
+	''' Ayuda de la función '''
+	declaraciones
+	return valor_funcion
+
+def la_funcion3(parametro1,parametro2=valor2,...):
+	''' Ayuda de la función '''
+	declaraciones
+	return valor_funcion
+......
+
+if __name__ == "__main__":
+	Código de prueba o test del módulo
+	\end{lstlisting}
+	%
+	En Python viene una variable definida internamente \lstinline|__name__|
+	Esta variable toma el valor del programa cuando se carga como módulo o el valor
+	cuando se corre como programa. 
+    
+    Veamos por ejemplo como se vería la función 
+    para el cálculol del factorial,
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{factorial\_v2.py}]
+""" Este es un ejemplo del uso de funciones como módulo para otros programas
+Devuelve el factorial de n entero """
+
+def factorial(n):
+    ''' Calcula el factorial de un número entero n! = n*(n-1)*(n-2)...'''
+    f = 1.
+    for i in range(1,n+1):
+        f = i * f
+    return f
+
+
+#----- programa principal -------
+if __name__ == "__main__":
+    a = int(input("ingrese el número entero del que quiere conocer el factrorial\n"))
+
+    if a>=0:
+        elfatorial = factorial(a)
+        print(f"El factorial del número que entraste es: {elfatorial} ")
+    else:
+        print("No es la función Gamma, el número debe ser entero mayor o igual a cero.")
+\end{lstlisting}
+%  
+
+\subsection*{\textcolor{blue}{\textit{El Punto de Entrada: \texttt{if \_\_name\_\_ == "\_\_main\_\_":}}}}
+
+En nuestros programas es fundamental que los de código sean 
+modulares, es decir, que puedan funcionar tanto como programas 
+independientes que se ejecutan directamente, como librerías de funciones 
+importables desde otros archivos. 
+
+Para lograr este comportamiento, Python utiliza una variable especial interna llamada \lstinline|__name__|.
+
+\subsubsection*{1. ¿Qué es \texttt{\_\_name\_\_} y cómo funciona?}
+
+Cada vez que el intérprete de Python ejecuta un archivo de código (\textsf{.py}), asigna automáticamente un valor a la variable oculta \lstinline|__name__| según el contexto:
+
+\begin{itemize}
+    \item \textbf{Si el archivo se ejecuta directamente} (por ejemplo, corriendo \texttt{python factorial.py} en la terminal):
+    Python le asigna a \lstinline|__name__| la cadena exacta \lstinline|"__main__"|.
+    
+    \item \textbf{Si el archivo es importado como módulo} dentro de otro programa (por ejemplo, haciendo \lstinline|import factorial| desde otro script):
+    Python le asigna a \lstinline|__name__| el nombre real del archivo (en este caso, \lstinline|"factorial"|).
+\end{itemize}
+
+\subsubsection*{2. El propósito del condicional}
+
+Al escribir la estructura:
+
+\begin{lstlisting}
+if __name__ == "__main__":
+    # Codigo del programa principal
+    a = int(input("Ingrese un numero: "))
+    print(factorial(a))
+\end{lstlisting}
+
+Le estamos diciendo a Python: 
+\begin{quote}
+\textit{«Ejecuta este bloque de código \textbf{únicamente} si el archivo está 
+siendo ejecutado de forma directa. Si el archivo está siendo importado 
+por otro script, ignora este bloque y limita tu trabajo a ofrecer 
+las funciones definidades arriba.»}
+\end{quote}
+
+Veamos un ejemplo utilizando la función factorial para calcular los coeficientes 
+binomiales 
+$$ \binom{n}{k} = \frac{n!}{k!(n - k)!} \quad \text{para } 0 \le k \le n \,,$$
+y el triángulo de Pascal.
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{triangulo\_pascal.py}]
+""" Lee la función factorial, calcula la combinatoria y muestra el triángulo 
+de Pascal""" 
+
+import factorial_v2  as fa # importamos nuestra función
+
+def binomial(n, k):
+    """
+    Calcula el coeficiente binomial C(n, k) = n! / (k! * (n - k)!)
+    usando la función factorial previamente definida.
+    Retorna un número entero.
+    """
+    if k < 0 or k > n:
+        return 0
+    if k == 0 or k == n:
+        return 1
+    
+    # Usamos la función factorial que llamamos 
+    num = fa.factorial(n)
+    den = fa.factorial(k) * fa.factorial(n - k)
+    return int(num/den)
+
+def imprimir_pascal(filas):
+    """Imprime las primeras filas del Triángulo de Pascal."""
+    for n in range(filas):
+        linea = []
+        for k in range(n + 1):
+            # Llamamos a la función de coeficientes binomial(n, k)
+            coeficiente = binomial(n, k)
+            linea.append(str(coeficiente))
+        
+        # Unir los números con espacios sin centrar
+        #print(" ".join(linea))
+        # Centra el texto en un ancho fijo de 40 caracteres
+        print(" ".join(linea).center(40))
+
+if __name__ == "__main__":
+
+    # Pedir las filas que desee del triángulo de Pasca
+    n = int(input("¿Cuántas filas desea para el triángulo?\t"))
+    imprimir_pascal(n)
+\end{lstlisting}
+%  
+
+\begin{enumerate}
+    \item \textbf{Importación de Módulos Propios y Alias (\lstinline|import ... as|):}
+    \begin{itemize}
+        \item La instrucción \lstinline|import factorial_v2 as fa| busca el archivo \texttt{factorial\_v2.py} en el mismo directorio de trabajo e importa todas sus funciones.
+        \item El uso del alias \lstinline|as fa| nos permite invocar la función con una sintaxis más corta y limpia: \lstinline|fa.factorial(n)| en lugar de \lstinline|factorial_v2.factorial(n)|.
+    \end{itemize}
+
+    \item \textbf{Definición de \lstinline|binomial(n, k)|:}
+    \begin{itemize}
+        \item Se incluyen optimizaciones con casos base: si $k < 0$ o $k > n$, el coeficiente es $0$; si $k = 0$ o $k = n$, devuelve directamente $1$ sin necesidad de calcular factoriales ($\binom{n}{0} = \binom{n}{n} = 1$).
+        \item \textbf{Nota de precisión:} La línea \lstinline|return int(num / den)| o idealmente la división entera \lstinline|return num // den| garantiza que el resultado sea de tipo entero (\lstinline|int|), evitando decimales innecesarios en la impresión (e.g., $6$ en lugar de $6.0$).
+    \end{itemize}
+
+    \item \textbf{Construcción de la Cadena :}
+    \begin{itemize}
+        \item \lstinline|linea.append(str(coeficiente))|: Convierte cada número que se tiene en la variable \newline \lstinline|coeficiente|
+        en cadena para almacenarlo en la lista temporal \lstinline|linea|.
+        \item \lstinline|" ".join(linea)|: Concatena los elementos de la lista intercalando un espacio entre ellos (ejemplo: \texttt{['1', '3', '3', '1']} $\rightarrow$ \texttt{"1 3 3 1"}).
+        \item \lstinline|.center(40)|: Es un método de cadenas de Python que añade espacios en blanco de forma equitativa a la izquierda y derecha para centrar la fila dentro de un bloque fijo de $40$ caracteres de ancho, generando la geometría piramidal clásica del triángulo.
+    \end{itemize}
+\end{enumerate}
+
+\begin{cajaflex}[Ejemplo: secuencia de Fibonacci]
+
+    \textcolor{blue}{\textit{La siguiente discusión fue tomada del libro: 
+	Introduction to real analysis, Robert G. Bartle et al}}
+
+    La secuencia de Fibonacci es una sucesión infinita de números 
+	naturales que comienza con 1, y cada número subsiguiente es
+	la suma de los dos anteriores. 
+	La secuencia se define de la siguiente manera, 
+	$F:=(f_n)_{n \in \mathbb{N}}$
+	\begin{align}\label{eq:sucesion_fibo}
+		f_1:=1,\hspace{1cm}f_2:=1,\hspace{1cm}f_{n+1}:=f_{n-1}+f_{n},\;(n\geq 2)\,.
+	\end{align}
+	Note que los primeros números de Fibonacci son: 1, 1, 2, 3, 5, 8, 13...
+	Dentro de muchas propiedades de la sucesión de Fibonacci, 
+	se encuentra que el cociente de dos números consecutivos tiende a la razón
+	áurea $\phi=\frac{1+\sqrt{5}}{2}\approx 1.6180339887$ (para más detalles 
+	ver el siguiente video: \href{https://www.youtube.com/watch?v=yDyMSliKsxI}{La sucesión de fibonacci y la razón aúrea})  
+	Acá te dejo otros dos videos interesantes sobre la sucesión de Fibonacci:
+	\href{https://www.youtube.com/watch?v=N0gr6nK6lgU}{Lo que nadie sabe de la sucesión 
+	de Fibonacci} y \href{http://youtube.com/watch?v=ctRIK56jV3k}{Las plantas y fibonacci}. 
+	También te dejo un \href{https://www.bbc.com/mundo/noticias-46926506}{artículo de divulgación}.
+
+	Vamos entonces a probar que $\lim_{n\rightarrow \infty} \dfrac{f_{n+1}}{f_n} = \phi$.
+	Para ello partimos de la ecuación \eqref{eq:sucesion_fibo} 
+	y dividimos ambos lados por $f_n$ para obtener
+	\begin{align}
+		\dfrac{f_{n+1}}{f_n} = \dfrac{f_{n-1}}{f_n}+1\,.
+	\end{align}
+	Si definimos $x_n=\dfrac{f_{n+1}}{f_n}$, entonces la ecuación anterior se 
+	puede reescribir como
+	\begin{align}
+		x_n = \dfrac{1}{x_{n-1}}+1\,.
+	\end{align}		
+	Asumiendo que la sucesión $(x_n)_{n\in \mathbb{N}}$ converge a  $L$, 
+	se tiene que 
+	\begin{align}
+		\lim_{n\rightarrow \infty} x_n = \lim_{n\rightarrow \infty} \left[ 
+			\dfrac{1}{ x_n}+1 \right] \Rightarrow  L = \frac{1}{L} + 1 \implies 
+			L^2-L-1=0 \,.
+	\end{align}	
+	La ecuación anterior se resuelve de la manera usual y se encuentran dos raíces.
+	La raíz positiva coincide con la razón aúrea $L=\dfrac{1+\sqrt{5}}{2}\equiv\phi$.
+
+\end{cajaflex}
+
+
+A continuación, mostraremos numéricamente el resultado anterior.
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{fibonacci.py}]
+""" 
+fibonacci. py
+Es un módulo que genera los números de Fibonacci y se verifica la famosa razón aúrea. 
+"""
+import math 
+
+def Fibonacci(N):
+    """
+    Genera y devuelve una lista  con los primeros N números de Fibonacci.
+    
+    Parametros de entrada:
+    N (int): Número de Fibonacci que desea generar.
+    
+    Devuelve:
+    list: Los primeros N números de Fibonacci comenzando desde f_1 = 1 y f_2 = 1.
+    """
+    if N <= 0:
+        print("Error: N debe ser un entero positivo.")
+        return []
+    elif N == 1:
+        return [1]
+    
+    # Inicia la secuencia (lista) con los dos primeros números 
+    fib_sequence = [1, 1]
+    
+    # Agrego los números de Fibonacci hasta que la longitud de la lista sea N, con el .append
+    # Tomamos el último de la lista fib_sequence[-1] 
+    # Tomamos el penúltimo de la lista fib_sequence[-2] 
+    # Agregamos cada elemento a la lista fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+    # Devuelve la lista desde e primero hasta el N-1 fib_sequence[:N]
+    for i in range(2, N):
+        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+        
+    return fib_sequence[:N]
+
+def convergencia(F):
+    """
+    Acá chequeamos la convergencia de la sucesión de Fibonacci y comparamos 
+    con la razón aúrea.
+    
+    Paramétro de entrada: La lista F con los números de Fibonacci.
+    
+    Retorna:
+    None: Imprime una tabla con la comparación entre la convergencia de la 
+    sucesión de fibonacci y la razón aúrea.
+    """
+    # La rázon aúrea: (1 + sqrt(5)) / 2
+    aurea = (1 + math.sqrt(5)) / 2
+    
+    # Se necesitan al menos dos números de Fibonacci para calcular la razón
+    valid_fibs = [x for x in F if x > 0]
+    
+    if len(valid_fibs) < 2:
+        print("Error: La lista de entrada debe contener al menos dos números de Fibonacci.")
+        return
+
+    print(f"{'n':<5} | {'f_n':<10} | {'f_n+1':<10} | {'Razón (F_n+1 / F_n)':<22} | {'Diferencia con la razón aúrea':<30}")
+    print("-" * 85)
+
+    ratios = []
+    for i in range(len(valid_fibs) - 1):
+        fn = valid_fibs[i]
+        fn1 = valid_fibs[i+1]
+        ratio = fn1 / fn
+        ratios.append(ratio)
+        diff = abs(ratio - aurea)
+        
+        print(f"{i+1:<5} | {fn:<10} | {fn1:<10} | {ratio:<22.10f} | {diff:<30.10e}")
+
+    # Chequea si la última diferencia es cercana a 0
+    final_diff = abs(ratios[-1] - aurea)
+    print("\n" + "=" * 85)
+    print(f"Razón aúrea (Valor real): {aurea:.10f}")
+    print(f"Última razón calculada:     {ratios[-1]:.10f}")
+    print(f"Discrepancia absoluta:      {final_diff:.10e}")
+    
+    if final_diff < 1e-4:
+        print("\nVerdicto: Johannes Kepler estaba correcto! .")
+    else:
+        print("\nVerdicto: La secuencia es demasiado corta para mostrar una convergencia.")
+
+
+# --- Programa principal ---
+if __name__ == "__main__":
+
+    print("--- Test Block del programa fibonacci.py ---\n")
+    N = int(input("Ingrese el número de términos para la secuencia "))
+
+    print(f"Generando los primeros {N} números de Fibonacci:")
+
+    fib_list = Fibonacci(N)
+    print(fib_list)
+    print("\n" + "=" * 85 + "\n")
+    
+    print("Verificando la convergencia :")
+    convergencia(fib_list)
+\end{lstlisting}
+
+%--------------- problemas --------------------
+
+\begin{problemas}[]
+\begin{enumerate}[leftmargin=*]
+
+\item Defina una función que devuelva el valor de la
+raíz cúbica de un número dado.
+\item Define una función que convierta grados centígrados
+a Kelvin y a Farenheit. 
+\item Defina una función que convierta grados en radianes.
+\item Defina una función que daods dos parámetros, $b$ y $x$,
+devuelva al logartimo en base $b$ de $x$, $\log_b(x)$. 
+\item \textbf{Números perfectos:}
+Se dice que un número es perfecto si es igual a la suma
+de todos sus divisores, excpeto él mismo. Por ejemplo:
+los divisores de 28 son 1, 2, 4, 7, 14 y 28. 
+Ahora, nota que 28 = 1 + 2+ 4+ 7 + 14. Entonce s28 
+es un número perfecto. Diseña una función que nos
+diga si un número dado es perfecto o no.
+
+\item \subsection*{\textcolor{red}{\textit{Construcción del módulo \texttt{cinematica.py}}}}
+
+Para resolver el siguiente problema, 
+\textit{lea la sección al final de este documento}
+
+\begin{enumerate}
+    \item \textbf{Parte 1: Diseño del Módulo (\texttt{cinematica.py})}
+    Cree un archivo llamado \texttt{cinematica.py} y definina 
+    las siguientes funciones:
+    \begin{itemize}
+        \item \lstinline|posicion_1d(x0, v0, a, t)|: Devuelve la posición $x(t)$. 
+        Debe aceptar tanto números flotantes como arreglos de \textsf{NumPy} para 
+        la variable $t$.
+        \item \lstinline|velocidad_1d(v0, a, t)|: Devuelve la velocidad $v(t)$.
+        \item \lstinline|tiempo_vuelo_parabolico(v0, angulo_deg, y0=0.0, g=9.8)|: 
+        Recibe la velocidad inicial, el ángulo en grados (convertir internamente a radianes 
+        con \lstinline|np.radians|) y la altura inicial. 
+        Retorna el tiempo total que el proyectil permanece en el aire.
+        \item \lstinline|alcance_maximo(v0, angulo_deg, y0=0.0, g=9.8)|: Hace uso interno de la función \lstinline|tiempo_vuelo_parabolico| para retornar el alcance horizontal total $R$.
+    \end{itemize}
+    \textit{Requisito:} Incluya el bloque \lstinline|if __name__ == "__main__":| al final 
+    de \texttt{cinematica.py} con las pruebas necesarias para validar que sus funciones 
+    entregan valores físicos coherentes 
+    (por ejemplo, verificar que con $v_0 = 10\text{ m/s}$, 
+    $\theta = 45^\circ$, $y_0 = 0$, el alcance es aproximadamente $10.2\text{ m}$).
+
+    \item \textbf{Parte 2: Aplicación en script principal} En un archivo separado 
+    ejecute las siguientes tareas importando su módulo 
+    recién creado:
+    \begin{enumerate}
+        \item Un cañón situado en un acantilado a $y_0 = 35\text{ m}$ 
+        dispara proyectiles a $v_0 = 40\text{ m/s}$. Varíe el ángulo de 
+        lanzamiento $\theta$ desde $10^\circ$ hasta $80^\circ$ en pasos de 
+        $1^\circ$.
+        \item Usando las funciones de su módulo, encuentre numéricamente el 
+        ángulo óptimo que maximiza el alcance horizontal $R$ y el tiempo 
+        de vuelo correspondiente.
+        \item Imprima los resultados en pantalla con formato profesional 
+        utilizando \textit{f-strings}.
+        \item Haga gráficos de posición y velocidad contra el tiempo para diferentes ángulos. Específicamente:
+        \begin{itemize}
+            \item Grafique $x(t)$ e $y(t)$ en función del tiempo para los ángulos $\theta \in \{15^\circ, 30^\circ, 45^\circ, 60^\circ, 75^\circ\}$.
+            \item Grafique la velocidad horizontal $v_x(t)$ y la velocidad vertical $v_y(t)$ en función del tiempo para los mismos ángulos, identificando el punto donde $v_y(t) = 0$ (altura máxima).
+        \end{itemize} 
+    \end{enumerate}
+\end{enumerate}
+
+\item \textbf{Módulo de Geometría Vectorial (\texttt{vectores.py}):}
+    Diseñe un nuevo módulo llamado \texttt{vectores.py} que contenga las siguientes funciones para vectores en 2D/3D representados como listas o arreglos de NumPy:
+    \begin{itemize}
+        \item \lstinline|norma(v)|: Devuelve la magnitud $|\vec{v}|$.
+        \item \lstinline|producto_punto(u, v)|: Devuelve el escalar $\vec{u} \cdot \vec{v}$.
+        \item \lstinline|angulo_entre(u, v)|: Devuelve el ángulo en grados entre ambos vectores.
+    \end{itemize}
+    Incluya casos de prueba en el condicional \lstinline|if __name__ == "__main__":| para verificar que los vectores ortogonales devuelvan un ángulo de $90^\circ$.
+
+ \item \textbf{Caída Libre con fricción lineal:}
+    La velocidad de una partícula en caída libre sujeta a resistencia del aire proporcional a la velocidad está dada por la solución analítica:
+    $$ v(t) = \frac{m g}{c} \left( 1 - e^{-\frac{c}{m}t} \right) $$
+    donde $m$ es la masa, $g = 9.8\text{ m/s}^2$ y $c$ es el coeficiente de arrastre.
+    \begin{enumerate}
+        \item Cree una función \lstinline|velocidad_terminal(m, c)| que retorne la velocidad límite $v_t = \frac{mg}{c}$.
+        \item Cree la función \lstinline|velocidad_friccion(t, m, c)| que evalúe la ecuación completa.
+        \item Escriba el bloque \lstinline|if __name__ == "__main__":| para pedir al usuario la masa $m$ y el coeficiente $c$, e imprimir cuánto tiempo tarda la partícula en alcanzar el $99\%$ de su velocidad terminal.
+    \end{enumerate}   
+\end{enumerate}
+
+\end{problemas}
+
+
+\begin{cajaflex}[Cinemática en 1D y 2D]
+Antes de implementar nuestro propio módulo de cinemática, es imperativo repasar 
+las ecuaciones analíticas que gobiernan el movimiento de una partícula bajo aceleración constante $a$:
+
+\paragraph{1. Movimiento en Una Dimensión (1D) con Aceleración Constante:}
+Para una partícula que se mueve a lo largo de un eje con posición inicial $x_0$, velocidad inicial $v_0$ y aceleración constante $a$:
+\begin{align}
+    x(t) &= x_0 + v_0 t + \frac{1}{2} a t^2 \\
+    v(t) &= v_0 + a t 
+\end{align}
+
+\paragraph{2. Movimiento de Proyectiles (2D) en un Campo Gravitacional:}
+Cuando un proyectil se lanza desde una posición $(x_0, y_0)$ con una rapidez inicial $v_0$ y un ángulo $\theta$ respecto a la horizontal, el movimiento se desacopla en dos ejes independientes (asumiendo aceleración gravitacional $g = 9.8\text{ m/s}^2$ apuntando hacia abajo):
+
+\begin{itemize}
+    \item \textbf{Eje Horizontal ($x$):} Movimiento a velocidad constante ($a_x = 0$).
+    \begin{equation}
+        v_x = v_0 \cos\theta, \quad x(t) = x_0 + (v_0 \cos\theta) t
+    \end{equation}
+    
+    \item \textbf{Eje Vertical ($y$):} Caída libre con aceleración constante ($a_y = -g$).
+    \begin{equation}
+        v_y(t) = v_0 \sin\theta - g t, \quad y(t) = y_0 + (v_0 \sin\theta) t - \frac{1}{2} g t^2
+    \end{equation}
+\end{itemize}
+
+\paragraph{3. Magnitudes Característas del Tiro Parabólico:}
+Resolviendo $y(t) = 0$ para el tiempo de vuelo $T_{\text{vuelo}}$ y evaluándolo en $x(t)$, 
+obtenemos el alcance horizontal máximo $x_{max}$:
+\begin{equation}
+    T_{\text{vuelo}} = \frac{v_0 \sin\theta + \sqrt{(v_0 \sin\theta)^2 + 2 g y_0}}{g}
+\end{equation}
+\begin{equation}
+    x_{max} = x(T_{\text{vuelo}}) = x_0 + (v_0 \cos\theta) T_{\text{vuelo}}
+\end{equation}
+\paragraph{4. Altura máxima del tiro parabólico:}
+Resolviendo $v_y(t) = 0$ para el tiempo y evaluándolo en $y(t)$, 
+obtenemos la altura máxima $y_{max}$.
+\end{cajaflex}
+
+\end{document}
+

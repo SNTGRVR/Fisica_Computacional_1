@@ -1,0 +1,875 @@
+%!TEX program = xelatex
+\documentclass[12pt]{article}
+
+% ---------- IDIOMA Y FUENTE ----------
+\usepackage{fontspec} 
+\usepackage[spanish, es-tabla]{babel} 
+% --- Cambiar "Cuadro" por "Tabla" ---
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+\setmainfont{TeX Gyre Termes}
+
+% ---------- PAQUETES MATEMÁTICOS Y FÍSICOS ----------
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{physics}
+
+% ---------- GRÁFICOS Y COLORES ----------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{babel} 
+\usepackage{tikz-3dplot}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usetikzlibrary{arrows.meta} 
+\usetikzlibrary{shapes.geometric} 
+\usetikzlibrary{decorations.markings}
+
+% ---------- CÓDIGO (LISTINGS) ----------
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,          
+    breakatwhitespace=false,         
+    breaklines=true,                     
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                        
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    language=Python                      
+}
+\lstset{style=pythonstyle}
+
+% ---------- DISEÑO Y ESTILO ----------
+\usepackage{geometry}
+\geometry{letterpaper, margin=2cm, headheight=15pt}
+\usepackage{fancyhdr} 
+\usepackage{lastpage}
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+% ---------- TCOLORBOX ----------
+\usepackage[most,skins,theorems]{tcolorbox}
+
+% --- Caja para Definiciones Formales ---
+\newtcolorbox{definicion}[1][]{
+  enhanced,
+  breakable, 
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title={Definición: #1},
+  arc=2mm,
+  boxrule=0.8pt,
+  drop shadow=black!10!white
+}
+
+% --- Caja para Tareas ---
+\newtcolorbox{problemas}[1][]{
+  enhanced,
+  breakable, 
+  colback=violet!6!white,       
+  colframe=violet!45!white,     
+  coltitle=violet!40!black,     
+  fonttitle=\bfseries,
+  title={Problemas: #1},
+  arc=2.5mm,                    
+  boxrule=0.8pt,
+  drop shadow=black!8!white     
+}
+
+% --- Caja Libre Verde Menta ---
+\newtcolorbox{cajaflex}[1][]{
+  enhanced,
+  breakable, 
+  colback=teal!5!white,       
+  colframe=teal!50!black,     
+  coltitle=teal!10!white,     
+  fonttitle=\bfseries,
+  code={\ifblank{#1}{}{\tcbset{title={#1}}}},
+  arc=2.5mm,                  
+  boxrule=0.8pt,
+  drop shadow=black!8!white   
+}
+
+% ---------- TABLAS Y ELEMENTOS EXTRA ----------
+\usepackage{booktabs}   
+\usepackage{pifont}     
+\usepackage{array}      
+\usepackage{caption}    
+\newcommand{\lapiz}{\ding{46}\ }
+
+% ---------- CONFIGURACIÓN DE ENCABEZADOS (ITM) ----------
+\newcommand{\logo}{\includegraphics[height=3cm]{escudoitm}}
+\newcommand{\escola}{Facultad de Ciencias Exactas y Aplicadas}
+\newcommand{\disc}{Física Computacional 1}
+\newcommand{\auth}{Robinson Longas Bedoya}
+\newcommand{\emaill}{\url{robinsonlongas@itm.edu.co}}
+\newcommand{\email}{\url{robinsonlongas3586@correo.itm.edu.co}}
+\newcommand{\cabec}{Física Computacional 1}
+
+% ---------- ENLACES Y PDF ----------
+\usepackage{hyperref}
+
+\definecolor{myblue}{RGB}{20, 20, 120}
+\definecolor{myred}{RGB}{220, 30, 30}
+\definecolor{mygreen}{RGB}{0, 130, 60}
+
+% Personalización de nombres para \autoref
+\def\tableautorefname{Tabla}
+\def\figureautorefname{Figura}
+\def\equationautorefname{Ecuación}
+\def\sectionautorefname{Sección}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={Física Computacional 1 -- Robinson Longas Bedoya},
+    pdfauthor={Robinson Longas Bedoya}
+}
+
+% Configuración de estilos de página
+\pagestyle{fancy}
+\fancyhf{} 
+
+\fancypagestyle{firstpage}{
+    \fancyhead[L]{\logo}
+    \fancyhead[R]{
+        \textsf{\escola \\} 
+        \textsf{\disc \\}
+        \textsf{\auth \\}
+        \textsf{\email \\} 
+        \textsf{\emaill}     
+    }
+    \fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0pt} 
+    \renewcommand{\footrulewidth}{0.4pt} 
+}
+
+\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email\ -- \emaill}}
+\fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\setlength{\parskip}{0.3em}
+
+\begin{document}
+		\thispagestyle{firstpage}
+		\vspace*{1.5cm}
+	
+	\begin{center}
+		\rule{\textwidth}{0.4pt}
+	\end{center}
+	
+	\begin{itemize}[leftmargin=*,label=\textcolor{red}{\ensuremath{\blacktriangleright}}]
+		\item \textbf{Herramientas de Python para el álgebra lineal.}
+	\end{itemize}
+	
+	\noindent
+	\textbf{\underline{Bibliografía}}
+	\begin{itemize}[leftmargin=*, label={\textcolor{blue}{$\bullet$}}]
+	  \item \textit{Computational Physics}, Mark Newman.
+      \item \textit{Programming for computations - Python}, Evein Linge and Petter Langtangen. 
+      \item \textit{Computational Physics with Python}, Eric Ayars. 
+      \item \textit{Computational mathematics: An introduction to Numerical Analysis and Scientific Computing  with Python},
+      Dimitrios Mitsotakis. 
+      \item \textit{Computational physics: problem solving with Python}, 
+        Rubin H. Landau, Manuel J. Páez and Cristian C. Bordeianu.
+    \end{itemize}
+     
+
+\section*{\textcolor{red}{\textit{Sistema de ecuaciones lineales}}}
+
+Las librerías de Python nos permiten abordar una multitud de problemas en 
+computación científica. Por ejemplo, un sistema de ecuaciones algebraicas lineales.
+En el papel resolvemos sistemas triviales, 
+%
+\begin{align*}
+   3x - 2y = 1, \quad x + y = 8,
+\end{align*}
+%
+cuya solución es $x = 17/5$ y $y = 23/5$. Esto puede llevarse a un sistema matricial 
+%
+\begin{align*}
+   \begin{bmatrix}
+      3 & -2 \\
+      1 &  1
+   \end{bmatrix}
+   \begin{bmatrix}
+      x \\
+      y
+   \end{bmatrix}
+   &=
+   \begin{bmatrix}
+      1 \\
+      8
+   \end{bmatrix}
+\end{align*}
+%
+o de forma compacta como $Ax = v$. Encontrar las soluciones se puede hacer por reducción 
+de Gauss, o por la inversa, o por la factorización LU. 
+En caso de que exista la inversa de $A$, se tiene que 
+$x = A^{-1}v$. La rutina \lstinline|np.linalg.solve| de \lstinline|numpy| nos ayuda con ello.
+%
+\begin{lstlisting}[language=Python]
+In [1]: import numpy as np
+
+In [2]: A = np.array([[3, -2], [1, 1]])
+
+In [3]: v = np.array([1, 8])
+
+In [4]: np.linalg.solve(A, v)
+Out[4]: array([3.4, 4.6])
+
+In [5]: 17 / 5
+Out[5]: 3.4
+
+In [6]: 23 / 5
+Out[6]: 4.6
+\end{lstlisting}
+%
+ 
+El problema anterior claramente no amerita el uso de una rutina computacional. 
+Sin embargo, consideremos el siguiente sistema de ecuaciones
+%
+\begin{align*}
+   2w +  x + 4y +  z &= -4 \\
+   3w + 4x -  y -  z &=  3 \\
+    w - 4x +  y + 5z &=  9 \\
+   2w - 2x +  y + 3z &=  7
+\end{align*}
+%
+que en forma matricial se escribe como
+%
+\begin{align*}
+   \begin{bmatrix}
+      2 &  1 &  4 &  1 \\
+      3 &  4 & -1 & -1 \\
+      1 & -4 &  1 &  5 \\
+      2 & -2 &  1 &  3
+   \end{bmatrix}
+   \begin{bmatrix}
+      w \\
+      x \\
+      y \\
+      z
+   \end{bmatrix}
+   &=
+   \begin{bmatrix}
+      -4 \\
+       3 \\
+       9 \\
+       7
+   \end{bmatrix}.
+\end{align*}
+%
+Este sistema de $4 \times 4$ ya resulta tedioso para resolver manualmente 
+mediante la eliminación de Gauss. En Python, la solución numérica se obtiene 
+directamente con el mismo procedimiento:
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{sistema\_ecuaciones.py}]
+""" Aquí se muestran algunas funciones básicas para trabajar con matrices"""
+
+import numpy as np
+
+# definición de la matrix
+A = np.array([[2,1,4,1], [3,4,-1,-1], [1,-4,1,5], [2,-2,1,3]], dtype=float)
+
+# definición del vector
+v = np.array([4,-3,9,7], dtype=float)
+
+# ==== propiedades de la matriz=====
+detA = np.linalg.det(A) # determinante
+rango = np.linalg.matrix_rank(A) #rango
+transpuestaA = np.transpose(A) # transpuesta también pued usar A.T
+trazaA = np.trace(A) #traza
+
+print("=== PROPIEDADES DE LA MATRIZ A ===")
+print(f"Rango: {rango}")
+print(f"Traza: {trazaA}")
+print(f"Determinante: {detA:.2f}")
+print(f"Transpuesta:\n{transpuestaA}\n")
+
+if not np.isclose(detA,0): 
+    print(f"El determinante de A es \n det A={detA: .2f}, diferente de cero")
+
+    # método de la inversa
+    invA = np.linalg.inv(A)
+    x = invA @ v # note el uso del operador @ antes se usaba np.dot(invA,v)
+    residuo1 = (A @ x) - v
+
+    print(f"\nSu inversa es \n A^-1 = {invA}")
+    print(f"\nLa solución del sistema usando la inversa es \n x = {x}")
+    print(f"\nCon residuo = {residuo1}")
+
+    # solución del sistema usando np.linag.solve 
+    y = np.linalg.solve(A,v)
+    residuo2 = (A @ y) - v
+    print(f"\nPor otro lado, podemos encontrar directamente la solución al sistema utilizando np.linalg.solve\n x = {y}")
+    print(f"\nCon residuo = {residuo2}")
+
+else:
+    print("La matriz A tiene determinante nulo, por lo tanto no es invertible")
+\end{lstlisting}
+%  
+Puede consultar las rutinas utilizadas directamente desde la documentación de \lstinline|numpy|
+\href{https://numpy.org/doc/stable/reference/routines.linalg.html}{dando clic aquí}.
+Note el uso del operador $@$ para realizar el producto matricial. En versiones anteriores
+de \lstinline|numpy| se utilizabda \lstinline|np.dot()|. 
+
+A continuación se muestra la diferencia entre la operación \lstinline|*| 
+(producto de Hadamard) y el producto matricial
+\lstinline|@|. 
+Note que el producto escalar $\cdot$ también se puede efectuar con \lstinline|@|
+%
+\begin{lstlisting}[language=Python]
+In [38]: M = np.array([[1, 2], [3, 4]])
+
+In [39]: N = np.array([[5, 6], [7, 8]])
+
+In [40]: N*M
+Out[40]: 
+array([[ 5, 12],
+       [21, 32]])
+
+In [41]: M*N
+Out[41]: 
+array([[ 5, 12],
+       [21, 32]])
+
+In [42]: N @ M
+Out[42]: 
+array([[23, 34],
+       [31, 46]])
+
+In [43]: M @ N
+Out[43]: 
+array([[19, 22],
+       [43, 50]])
+
+In [44]: r = np.array([1,8,9,10,12,-20],dtype=float)
+
+In [45]: v = np.array([-1,8,-9,110,12,-20],dtype=float)
+
+In [46]: print(r @ v)
+1626.0
+
+In [47]: print(v @ r)
+1626.0       
+\end{lstlisting}
+% 
+
+En álgebra lineal también se estudia la factorización LU.
+Suponga que quiere resolver $Ax =v$. Escribimos $A = LU$, donde $L$ es triangular
+inferior y $U$ es triangular superior. Luego, $Ax = LUx = v$ y se define $y=UX$, tal que
+$Ly = v$. Para la factorización LU, utilizamos la rutina \lstinline|scipy.linalg.lu|
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{LUfactor.py}]
+""" Aquí se muestran algunas funciones básicas para trabajar con matrices"""
+
+import numpy as np
+import scipy as sp
+
+# definición de la matrix
+A = np.array([[2,1,4,1], [3,4,-1,-1], [1,-4,1,5], [2,-2,1,3]], dtype=float)
+
+# definición del vector
+v = np.array([4,-3,9,7], dtype=float)
+
+# ==== Descomposición LU=====
+# P es la matriz de permutación, L es triangular inferior y U triangular superior
+P, L, U = sp.linalg.lu(A)
+
+print("=== DESCOMPOSICIÓN LU (P A = L U) ===")
+print(f"Matriz P (Permutación):\n{P}\n")
+print(f"Matriz L (Triangular Inferior con 1s en la diagonal):\n{L}\n")
+print(f"Matriz U (Triangular Superior):\n{U}\n")
+
+# Verificación de la descomposición P @ L @ U == A
+print(f"Verificación P @ L @ U == A:")
+print(f"{P @ L @ U}\n")
+
+# Resolución del sistema Ax = v usando LU (L y = P^T v, luego U x = y)
+y_lu = sp.linalg.solve_triangular(L, P.T @ v, lower=True)
+x_lu = sp.linalg.solve_triangular(U, y_lu, lower=False)
+
+residuo1 = (A @ x_lu) -v
+print(f"Solución x usando Descomposición LU:\nx = {x_lu}\n")
+print(f"con residuo:\n {residuo1}\n")
+
+if not np.isclose(np.linalg.det(A),0): 
+    # solución del sistema usando np.linag.solve 
+    y = np.linalg.solve(A,v)
+    residuo2 = (A @ y) - v
+    print(f"Por otro lado, podemos encontrar directamente la solución al sistema utilizando np.linalg.solve\n x = {y}")
+    print(f"Con residuo = {residuo2}")
+
+else:
+    print("La matriz A tiene determinante nulo, por lo tanto no es invertible")
+\end{lstlisting}
+%
+Puede consultar las rutinas desde la documentación de \lstinline|scipy|
+\href{https://docs.scipy.org/doc/scipy/reference/linalg.html}{dando clic aquí}.
+
+
+\section*{\textcolor{red}{\textit{Diagonalización de matrices}}}
+
+Finalmente, un problema fundamental que aparece en Física es el problema de autovalores
+y autovectores, $Av = \lambda v$. Prácticamente,  la diagonalización de matrices es
+el pan de cada día en electromagnetismo, mecánica cuántica, mecánica clásica, entre otras.
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{autovalores\_autovectors.py}]
+""" Aquí se muestran las funciones básicas para calcular autovectores y autovalores"""
+
+import numpy as np
+
+# definición de la matrix
+M = np.array([[2,1,4,1,7], [3,4,-1,1,0], [1,-4,1,5,2], [2,-2,1,3,6], [-1,-3,2,1,-10] ], dtype=float)
+
+# ==== Autovalores y autovectrores propiedades de la matriz=====
+autovalores, autovectores = np.linalg.eig(M)
+
+print("=== AUTOVALORES Y AUTOVECTORES ===")
+print(f"Autovalores (λ):\n{autovalores}\n")
+print(f"Autovectores (columnas v_i):\n{autovectores}\n")
+
+print("----------------\n")
+print("Verificación de la relación A * v = λ * v sin usar enumerate")
+print("----------------\n")
+
+for i in range(len(autovalores)):
+    lamvi = autovalores[i]
+    vi = autovectores[:,i]
+    lamv = lamvi * vi
+    Mv = M @ vi
+    print(f"Autovalor λ_{i} = {lamvi:.4f}")
+    print(f"  M @ v_{i}:     {Mv}")
+    print(f"  λ_{i} * v_{i}:    {lamv}")
+    # Comprobación de igualdad numérica
+    print(f" ¿Son iguales? {np.allclose(Mv, lamv)}\n")
+
+print("----------------\n")
+print("Verificación de la relación A * v = λ * v usando enumerate")
+print("----------------\n")
+
+for i, lam in enumerate(autovalores):
+    vi = autovectores[:, i]
+    Mv = M @ vi
+    lamv = lam * vi
+    print(f"Autovalor λ_{i} = {lam:.4f}")
+    print(f"  M @ v_{i}:     {Mv}")
+    print(f"  λ_{i} * v_{i}:    {lamv}")
+    # Comprobación de igualdad numérica
+    print(f" ¿Son iguales? {np.allclose(Mv, lamv)}\n")
+\end{lstlisting}
+%
+Acá hemos hecho uso del comando \lstinline|enumerate| para extraer el número asociado al 
+autovalor. Por ejemplo,
+%
+\begin{lstlisting}[language=Python]
+In [76]: lista= ["Armenia", "Pereira", "Barbosa", "Girardota"]
+
+In [77]: for i in lista:
+    ...:     print(i)
+    ...: 
+Armenia
+Pereira
+Barbosa
+Girardota
+
+In [78]: for i in enumerate(lista):
+    ...:     print(i)
+    ...: 
+(0, 'Armenia')
+(1, 'Pereira')
+(2, 'Barbosa')
+(3, 'Girardota')
+
+In [79]: calificaciones =  [0.5, 3.2, 1.7, 4.8]
+
+In [80]: for i, notas in enumerate(calificaciones):
+    ...:     print(f"índice: {i}, valor asiciado a ese ínidce: {notas}")
+    ...: 
+índice: 0, valor asiciado a ese ínidce: 0.5
+índice: 1, valor asiciado a ese ínidce: 3.2
+índice: 2, valor asiciado a ese ínidce: 1.7
+índice: 3, valor asiciado a ese ínidce: 4.8
+\end{lstlisting}
+% 
+Para concluir esta parte, veamos la descomposición en valores singulares 
+(\textit{Singular Value Decomposition}, SVD). Este teorema nos permite diagonalizar 
+cualquier matriz general de orden $m \times n$ mediante lo que en Física de Partículas 
+denominamos una \textbf{transformación biunitaria}:
+%
+\begin{align*}
+   M = V_L \Sigma V_R^\dagger \quad \implies \quad \Sigma = V_L^\dagger M V_R,
+\end{align*}
+%
+donde $V_L$ y $V_R$ son matrices unitarias que rotan los campos de izquierda y derecha, 
+respectivamente, y $\Sigma$ contiene las masas 
+físicas (valores singulares $\sigma_i \ge 0$). 
+
+\begin{table}[h!]
+\centering
+\caption{Paralelo entre la notación de física de partículas y la notación estándar de SVD en álgebra lineal.}
+\label{tab:paralelo_svd}
+\vspace{0.2cm}
+\resizebox{\textwidth}{!}{% <--- Ajusta la tabla exactamente al ancho de página
+\begin{tabular}{llll}
+\toprule
+\textbf{Concepto} & \textbf{Física de Partículas} & \textbf{Matemática (SVD)} & \textbf{Interpretación} \\ 
+\midrule
+Matriz de masa / operador & $M \in \mathbb{C}^{m \times n}$ & $A \in \mathbb{C}^{m \times n}$ & Matriz de acoplamiento de sabor. \\
+Masas / Valores singulares & $M_{\text{diag}} = \text{diag}(m_i)$ & $\Sigma = \text{diag}(\sigma_i)$ & Masas físicas ($\sigma_i = m_i \ge 0$). \\
+Rotación izquierda ($L$) & $V_L \in U(m)$ & $U \in U(m)$ & Rotación de campos izquierdos. \\
+Rotación derecha ($R$) & $V_R \in U(n)$ & $V \in U(n)$ & Rotación de campos derechos. \\
+Transformación & $M_{\text{diag}} = V_L^\dagger M V_R$ & $\Sigma = U^\dagger A V$ & Diagonalización biunitaria. \\
+Descomposición & $M = V_L M_{\text{diag}} V_R^\dagger$ & $A = U \Sigma V^\dagger$ & Reconstrucción SVD. \\
+Matriz de mezcla & $U_{\text{PMNS}} = V_L^{e\dagger} V_L^\nu$ & $W = U_1^\dagger U_2$ & Matriz física de oscilación. \\ 
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+Considere, por ejemplo, la aplicación directa en Python tanto para una matriz 
+de masa cuadrada $3 \times 3$ como para una matriz no cuadrada $3 \times 4$ :
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{Tbiunutaria.py}]
+""" Aplicamos la transformación biunitaria para diagonalizar una matrix
+en matemáticas se conoce como el singular value descomposition (SVD)"""
+import numpy as np
+
+
+# Matriz de masa cuadrada (3 x 3)
+M = np.array([[2.0 + 1j,  0.5 - 0.2j, 1.0], [0.1,1.5 + 0.8j, 0.3j], [0.0, 0.2, 0.8 - 0.5j] ])
+
+# Aplicamos SVD (Transformación biunitaria)
+# U y V son unitarias (en partículas son V_L y V_R) Md es S, la diagonal
+VL, Md, VRh = np.linalg.svd(M)
+
+# contruimos el VR porque la rutina devuelve el hermítico
+VR = VRh.conj().T
+
+# Verificamos la diagonalización V_L^\dagger @ M @ V_R
+M_diag = VL.conj().T @ M @ VR
+
+print("======= matrix M cuadrada 3x3 ========")
+print("Masas físicas (Valores singulares S con np.linalg.svd(M)):")
+print(np.round(Md, 4))
+
+print("\nMatriz diagonalizada V_L^H @ M @ V_R:")
+print(np.round(M_diag, 4))
+
+# Matriz de masa  no cuadrada cuadrada (3 x 4)
+N = np.array([[2.0 + 1j,  0.5 - 0.2j, 0.0, 1. -1j], [0.1,1.5 + 0.8j, 0.3j, 1. -2j ], [0.0, 0.2, 0.8 - 0.5j, 1. +3j] ])
+# Aplicamos SVD (Transformación biunitaria)
+# U y V son unitarias (en partículas son V_L y V_R) Md es S, la diagonal
+VNL, MNd, VNRh = np.linalg.svd(N)
+
+# contruimos el VR porque la rutina devuelve el hermítico
+VNR = VNRh.conj().T
+
+# Verificamos la diagonalización V_L^\dagger @ M @ V_R
+MN_diag = VNL.conj().T @ N @ VNR
+
+print("\n======= matrix N no cuadrada 3x4 ========")
+print(f"Dimensiones de N:   {N.shape}")
+print(f"Dimensiones de VNL: {VNL.shape}  | VNR: {VNR.shape}")
+
+print("Masas físicas (Valores singulares S con np.linalg.svd(MN):")
+print(np.round(MNd, 4))
+
+print("\nMatriz diagonalizada VN_L^H @ N @ VN_R:")
+print(np.round(MN_diag, 4))
+print(f"El rango de N es: {np.linalg.matrix_rank(N)} que equivale a las masas físicas")
+\end{lstlisting}
+%
+
+
+\begin{cajaflex}[\texttt{Resumen de las rutinas básicas utilizads}]
+
+$\blacklozenge$ Acceda a la documentación oficial \lstinline|scipy| 
+\href{https://docs.scipy.org/doc/scipy/reference/linalg.html}{dando clic aquí}. 
+
+$\blacklozenge$ Acceda a la documentación oficial \lstinline|scipy| 
+\href{https://numpy.org/doc/stable/reference/routines.linalg.html}{dando clic aquí}. 
+
+\lstinline|detA = np.linalg.det(A)| \quad \hfill \text{\small (Determinante)} \\
+\lstinline|rango = np.linalg.matrix_rank(A)| \quad \hfill \text{\small (Rango de la matriz)} \\
+\lstinline|transpA = np.transpose(A)  # o A.T| \quad \hfill \text{\small (Matriz Transpuesta)} \\
+\lstinline|trazaA = np.trace(A)| \quad \hfill \text{\small (Traza de la matriz)}
+
+\lstinline|invA = np.linalg.inv(A)| \quad \hfill \text{\small (Inversa explícita)} \\
+\lstinline|y = np.linalg.solve(A, v)| \quad \hfill \text{\small (Solución directa de $A y = v$)} \\
+\lstinline|P, L, U = scipy.linalg.lu(A)| \quad \hfill \text{\small (Descomposición $LU$ con pivoteo)}
+\lstinline|autovalores, autovectores = np.linalg.eig(M)| \quad \hfill \text{\small (Diagonalización)} \\
+\lstinline|VL, S, VRh = np.linalg.svd(M)| \quad \hfill \text{\small (Valores Singulares)}
+
+\textcolor{teal!60!black}{\rule{\linewidth}{0.8pt}}
+
+\vspace{0.1cm}
+
+\subsubsection*{\textcolor{teal!70!black}{1. \texttt{np.linalg.det(A)}}}
+\begin{itemize}
+    \item \textbf{Qué hace:} Calcula el \textbf{determinante} de una matriz cuadrada.
+    \item \textbf{Uso en física:} Indispensable para verificar si un sistema de ecuaciones tiene solución única ($\det(A) \neq 0$) o analizar volúmenes en transformaciones lineales.
+\end{itemize}
+
+\subsubsection*{\textcolor{teal!70!black}{2. \texttt{np.linalg.matrix\_rank(A)}}}
+\begin{itemize}
+    \item \textbf{Qué hace:} Determina el número de filas o columnas linealmente independientes empleando internamente descomposición SVD.
+    \item \textbf{Interpretación:} Si el rango es menor que la dimensión de $A$, la matriz es singular (no invertible).
+\end{itemize}
+
+\subsubsection*{\textcolor{teal!70!black}{3. \texttt{np.transpose(A)} \mdseries{o} \texttt{A.T}}}
+\begin{itemize}
+    \item \textbf{Qué hace:} Intercambia filas por columnas ($A_{ij} \to A_{ji}$).
+    \item \textbf{Nota:} Para matrices complejas en mécanica cuántica, 
+    se requiere la \textbf{traspuesta conjugada} (Daga $A^\dagger$), se debe usar \texttt{np.conj(A.T)} o \texttt{A.conj().T}.
+\end{itemize}
+
+\subsubsection*{\textcolor{teal!70!black}{4. \texttt{np.trace(A)}}}
+\begin{itemize}
+    \item \textbf{Qué hace:} Suma los elementos de la diagonal principal ($\sum_i A_{ii}$).
+    \item \textbf{Aplicación:} Conservación de invariantes bajo transformaciones unitarias en física.
+\end{itemize}
+
+\subsubsection*{\textcolor{teal!70!black}{1. \texttt{np.linalg.inv(A)} \mdseries{vs} \texttt{np.linalg.solve(A, v)}}}
+\begin{itemize}
+    \item \textbf{\texttt{np.linalg.inv(A)}:} Calcula la matriz inversa $A^{-1}$. Es numéricamente inestable y costoso computacionalmente si solo se quiere resolver un sistema $A y = v$.
+    \item \textbf{\texttt{np.linalg.solve(A, v)} (Recomendado):} Resuelve el sistema lineal $A y = v$ directamente usando eliminación gaussiana sin calcular la inversa.
+    \item \textbf{Regla de oro:} Siempre que necesites calcular $y = A^{-1} v$, utiliza \texttt{np.linalg.solve(A, v)} en lugar de multiplicar por la inversa.
+\end{itemize}
+
+\subsubsection*{\textcolor{teal!70!black}{2. \texttt{scipy.linalg.lu(A)}}}
+\begin{itemize}
+    \item \textbf{Qué hace:} Descompone la matriz $A$ en el producto $A = P \cdot L \cdot U$, donde:
+    \begin{itemize}
+        \item \textbf{\texttt{P}:} Matriz de permutación (controla el pivoteo de filas).
+        \item \textbf{\texttt{L}:} Matriz triangular inferior con unos en la diagonal (\textit{Lower}).
+        \item \textbf{\texttt{U}:} Matriz triangular superior (\textit{Upper}).
+    \end{itemize}
+    \item \textbf{Uso principal:} Resolver múltiples sistemas lineales que comparten la misma matriz de coeficientes $A$.
+\end{itemize}
+
+\subsubsection*{\textcolor{teal!70!black}{1. \texttt{np.linalg.eig(M)}}}
+\begin{itemize}
+    \item \textbf{Qué devuelve:}
+    \begin{itemize}
+        \item \textbf{\texttt{autovalores}:} Un arreglo 1D con los autovalores $\lambda_i$.
+        \item \textbf{\texttt{autovectores}:} Una matriz 2D donde las \textbf{columnas} representan los autovectores normalizados $v_i$.
+    \end{itemize}
+    \item \textbf{Importante:} Satisface la ecuación $M \cdot v_i = \lambda_i v_i$. Si la matriz $M$ es simétrica o hermitiana, es preferible utilizar \texttt{np.linalg.eigh(M)} por estabilidad numérica.
+\end{itemize}
+
+\subsubsection*{\textcolor{teal!70!black}{2. \texttt{np.linalg.svd(M)}}}
+\begin{itemize}
+    \item \textbf{Qué es:} La Descomposición en Valores Singulares $M = V_L \cdot \Sigma \cdot V_R^\dagger$.
+    \item \textbf{Estructura de salida:}
+    \begin{itemize}
+        \item \textbf{\texttt{VL} ($V_L$):} Matriz unitaria izquierda.
+        \item \textbf{\texttt{S} ($\Sigma$):} Un arreglo 1D con los \textbf{valores singulares} (siempre reales y positivos $\sigma_i \ge 0$).
+        \item \textbf{\texttt{VRh} ($V_R^\dagger$):} La matriz transpuesta conjugada de la rotación derecha.
+    \end{itemize}
+    \item \textbf{Uso en Física:} Diagonalización de matrices complejas no simétricas, masas de neutrinos (Majorana/Dirac) y reducción de dimensionalidad en datos.
+\end{itemize}
+\end{cajaflex}
+
+
+%--------------- problemas --------------------
+\begin{problemas}[]
+\begin{enumerate}[leftmargin=*]
+\item Resuelva el siguiente sistema de ecuaciones lineales para las 
+variables $a$ hasta $f$:
+\begin{align*}
+\frac{a}{5} + b + c + d - e - f &= 24.1312 \\
+a + c - d + 5e + f &= 46.2798 \\
+-a - 3b + 2c - d - e - f &= -61.8372 \\
+5b - c + d + 2e &= 31.1466 \\
+a - 2b + 3c + \frac{d}{2} &= 51.2106 \\
+\frac{a}{2} - 2b - 2c - d + e - 6f &= -5.7008
+\end{align*}
+
+\item Considere la matriz:
+%
+\begin{align*}
+   A = 
+   \begin{bmatrix}
+      1 & 2 & 3 \\
+      0 & 1 & 4 \\
+      5 & 6 & 0
+   \end{bmatrix}.
+\end{align*}
+%
+Utilizando los módulos NumPy y SciPy de Python:
+
+\begin{enumerate}[label=\alph*)]
+   \item Calcule el determinante de la matriz $A$ ($\det(A)$).
+   \item Determine la matriz inversa $A^{-1}$, en caso de que exista.
+   \item Haga la factorización LU.
+   \item Compute los autovalores y los correspondientes autovectores de $A$ mediante la rutina \lstinline|np.linalg.eig|.
+\end{enumerate}
+
+\item En electrónica, las leyes de Kirchhoff se 
+utilizan para resolver las corrientes que pasan a través de los 
+componentes en redes de circuitos. 
+Al aplicar estas leyes se obtienen sistemas de ecuaciones lineales, 
+los cuales pueden expresarse como ecuaciones matriciales, 
+tales como:
+%
+\begin{equation}
+\begin{bmatrix}
+-13 & 2 & 4 \\
+2 & -11 & 6 \\
+4 & 6 & -15
+\end{bmatrix}
+\begin{bmatrix}
+I_A \\
+I_B \\
+I_C
+\end{bmatrix}
+=
+\begin{bmatrix}
+5 \\
+-10 \\
+5 
+\end{bmatrix}\nonumber
+\end{equation}
+Usando el módulo de numpy, encuentre las corrientes $I_A$, $I_B$, $I_C$.
+
+
+\item Los modos normales y las frecuencias angulares correspondientes 
+para un sistema lineal de cuatro osciladores acoplados de masa $m$, 
+conectados por resortes de igual constante elástica $k$, 
+están dados por los autovectores y autovalores de la matriz $M$ 
+que se muestra a continuación:
+\begin{equation}
+M = \begin{bmatrix} 
+2 & -1 & 0 & 0 \\ 
+-1 & 2 & -1 & 0 \\ 
+0 & -1 & 2 & -1 \\ 
+0 & 0 & -1 & 2 
+\end{bmatrix} \nonumber
+\end{equation}
+
+Los autovalores representan el cuadrado o la escala de las frecuencias 
+angulares $\omega$ en unidades de $\sqrt{k/m}$. 
+Encuentre dichas frecuencias angulares.
+\end{enumerate}
+\end{problemas}
+
+
+\newpage
+\begin{cajaflex}[Masas de neutrinos]
+
+Para ilustrar el papel del ordenamiento de autovalores y la diagonalización 
+matricial en un contexto físico real, 
+consideraremos el sector de neutrinos masivos de Majorana. 
+
+Sea $M_\nu$ una matriz de masa simétrica de $3 \times 3$ definida en la 
+\textit{base de sabor} 
+$ \{\nu_e, \nu_\mu, \nu_\tau\}$. 
+En el lagrangiano de interacción, la masa se expresa como:
+%
+\begin{align*}
+   \mathcal{L}_{\text{mass}} = -\frac{1}{2} \, N_0^T M_\nu N_0 + \text{h.c.}, \quad \text{con } 
+   N_0 = \begin{pmatrix} \nu_e \\ \nu_\mu \\ \nu_\tau \end{pmatrix}.
+\end{align*}
+%
+Para pasar a los autoestados de masa$N = \begin{pmatrix} \nu_1 & \nu_2 & \nu_3 \end{pmatrix}^T$,
+realizamos la transformación unitaria de campos $N_0 = U N$, donde $U \equiv U_{\text{PMNS}}$ es la matriz de Pontecorvo-Maki-Nakagawa-Sakata:
+%
+\begin{align*}
+   \mathcal{L}_{\text{mass}} = -\frac{1}{2} \, (U N)^T M_\nu (U N) + \text{h.c.} = -\frac{1}{2} \, N^T \left( U^T M_\nu U \right) N + \text{h.c.}
+\end{align*}
+%
+Por consiguiente, la matriz de masa se diagonaliza mediante la transformación 
+%
+\begin{align*}
+   M_{\text{diag}} = U^T M_\nu U = \begin{pmatrix} m_1 & 0 & 0 \\ 0 & m_2 & 0 \\ 0 & 0 & m_3 \end{pmatrix},
+\end{align*}
+%
+donde los autovalores $m_1, m_2, m_3 \ge 0$ representan las masas físicas de los neutrinos. En términos de componentes, la relación entre los estados de sabor $\alpha \in \{e, \mu, \tau\}$ y los estados de masa $i \in \{1, 2, 3\}$ se escribe:
+%
+\begin{align*}
+   \nu_\alpha = \sum_{i=1}^3 U_{\alpha i} \, \nu_i.
+\end{align*}
+
+La matriz de mezcla $U$ se parametriza habitualmente en términos de tres ángulos de rotación 
+$(\theta_{12}, \theta_{23}, \theta_{13})$, 
+una fase de violación CP ($\delta_{\text{CP}}$) y dos fases de Majorana ($\alpha_{21}, \alpha_{31}$):
+%
+\begin{align*}
+   U &= \begin{pmatrix} U_{e1} & U_{e2} & U_{e3} \\ U_{\mu 1} & U_{\mu 2} & U_{\mu 3} \\ U_{\tau 1} & U_{\tau 2} & U_{\tau 3} \end{pmatrix}\\ 
+   & = \begin{pmatrix} 
+      c_{12} c_{13} & s_{12} c_{13} & s_{13} e^{-i\delta_{\text{CP}}} \\
+      -s_{12} c_{23} - c_{12} s_{23} s_{13} e^{i\delta_{\text{CP}}} & c_{12} c_{23} - s_{12} s_{23} s_{13} e^{i\delta_{\text{CP}}} & s_{23} c_{13} \\
+      s_{12} s_{23} - c_{12} c_{23} s_{13} e^{i\delta_{\text{CP}}} & -c_{12} s_{23} - s_{12} c_{23} s_{13} e^{i\delta_{\text{CP}}} & c_{23} c_{13}
+   \end{pmatrix} \text{diag}\left(1, e^{i\frac{\alpha_{21}}{2}}, e^{i\frac{\alpha_{31}}{2}}\right),
+\end{align*}
+%
+donde $c_{ij} \equiv \cos\theta_{ij}$ y $s_{ij} \equiv \sin\theta_{ij}$. A partir de los elementos de $U$, los ángulos de mezcla se aíslan directamente como:
+%
+\begin{align*}
+   \tan\theta_{12} = \left| \frac{U_{e2}}{U_{e1}} \right|, \quad \tan\theta_{23} = \left| \frac{U_{\mu 3}}{U_{\tau 3}} \right|, \quad \sin\theta_{13} = |U_{e3}|.
+\end{align*}
+
+
+
+\subsection*{Restricciones experimentales y jerarquía de masas}
+
+Los experimentos de oscilación de neutrinos miden las diferencias de 
+cuadrados de masa $\Delta m_{ij}^2 \equiv m_i^2 - m_j^2$ y los ángulos de mezcla. 
+Las restricciones globales vigentes -\href{https://www.nu-fit.org/}{NuFIT 6.0}-
+imponen los rangos a $3\sigma$:
+%
+\begin{align*}
+   0.275 < \sin^2\theta_{12} < 0.357, \quad 0.400 &< \sin^2\theta_{23} < 0.620, \quad 0.020 < \sin^2\theta_{13} < 0.024, \\[2mm]
+   6.82 \times 10^{-5}\text{ eV}^2 &< \Delta m_{21}^2 < 8.03 \times 10^{-5}\text{ eV}^2.
+\end{align*}
+
+Dado que los experimentos solares fijan la convención $m_1 < m_2$ 
+(para que $\Delta m_{21}^2 > 0$), existen dos posibilidades
+físicamente distintas respecto al tercer autovalor $m_3$:
+%
+\begin{enumerate}
+   \item \textbf{Jerarquía Normal (NO / NH):} $m_1 < m_2 < m_3$, donde $\Delta m_{31}^2 > 0$:
+   \begin{align*}
+      2.435 \times 10^{-3}\text{ eV}^2 < \Delta m_{31}^2 < 2.598 \times 10^{-3}\text{ eV}^2.
+   \end{align*}
+   \item \textbf{Jerarquía Invertida (IO / IH):} $m_3 < m_1 < m_2$, donde $\Delta m_{32}^2 < 0$:
+   \begin{align*}
+      -2.581 \times 10^{-3}\text{ eV}^2 < \Delta m_{32}^2 < -2.414 \times 10^{-3}\text{ eV}^2.
+   \end{align*}
+\end{enumerate}
+
+\noindent\textcolor{red}{Planteamiento del problema numérico:} Independientemente de la
+física, el problema numérico es:  
+Dada una matriz de masa $M_\nu \in \mathbb{C}_{3 \times 3}$ generada aleatoriamente:
+\begin{enumerate}[label=\roman*)]
+   \item Obtener sus autovalores de masa y la matriz de rotación $U$ mediante la descomposición $SVD$.
+   \item Ordenar los autovalores para identificar la jerarquía (NO o IO).
+   \item Verificar si los observables extraídos ($\Delta m_{21}^2$, $|\Delta m_{3l}^2|$ y $\sin^2\theta_{ij}$)
+    se encuentran dentro de las cotas experimentales permitidas por NuFIT.
+\end{enumerate}
+\end{cajaflex}
+
+
+\end{document}
+
