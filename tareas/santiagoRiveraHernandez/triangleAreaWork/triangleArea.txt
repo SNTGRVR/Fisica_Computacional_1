@@ -1,8 +1,0 @@
-En este txt elaboraremos un pseudocódigo que nos permita calcular el área de un triángulo, pidiéndole al usuario que introduzca el valor de la altura y la base.
-
-1. Inicio
-2. Definimos base (preguntándole al usuario cuánto vale)
-3. Definimos altura (preguntándo tatata)
-4. Definimos area = (1/2) * base * altura
-5. Mostramos "el área del triángulo de base *base* y altura *altura* es *area*"
-6. Fin
