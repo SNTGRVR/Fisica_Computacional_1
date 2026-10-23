@@ -38,5 +38,5 @@ ax2.legend(loc="lower center", fontsize=18)
 ax2.tick_params (axis='both', which='both', labelsize =20)
 
 plt.tight_layout()
-plt.savefig('../lectures/03_herramientas_python/derivadasinx.pdf', bbox_inches='tight')
+plt.savefig('../../figuras/derivadasinx.pdf', bbox_inches='tight')
 plt.show()

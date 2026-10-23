@@ -1,7 +1,7 @@
 """En este programa se ilustra el uso de la lectura y la escritura de ficheros"""
 
-archivo_entrada='masavolumen.txt'
-archivo_salida='masavolumendensidad.txt'
+archivo_entrada='../data/masavolumen.txt'
+archivo_salida='../data/masavolumendensidad.txt'
 
 #abrimos los archivos
 with open(archivo_entrada, 'r') as f_in, open(archivo_salida, 'w') as f_out:

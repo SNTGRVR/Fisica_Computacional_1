@@ -40,5 +40,5 @@ for nombre, raiz, iters, nfev in metodos:
     residuo = abs(f(raiz))
     print(f"{nombre:<18} | {raiz:<14.8f} | {residuo:<14.2e} | {iters:<12} | {nfev:<14}")
 
-plt.savefig('../Clases/Herramientas_Python/xlnx.pdf', bbox_inches='tight')
+plt.savefig('../../figuras/xlnx.pdf', bbox_inches='tight')
 plt.show()

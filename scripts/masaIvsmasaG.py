@@ -2,7 +2,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-datos= np.loadtxt('datosL1.txt')
+datos= np.loadtxt('../data/datosL1.txt')
 l = datos[:,0] # la primera columna es la longitud
 t = datos[:,1] # la segunda columna es el tiempo
 #calculo de la masa gravitacional/ masa inercial
@@ -17,5 +17,5 @@ plt.axhline(1, color='black', ls='--', lw=3, label=r'$\boldsymbol{Esperado}$')
 plt.xlabel("tiempo(s)", size=20)
 plt.ylabel(r'$\boldsymbol{m_g/m_i}$', size=20)
 plt.legend(prop={'size': 15}, loc='upper left', frameon=True)
-plt.savefig("mgvsmi.pdf")
+#plt.savefig("../figures/mgvsmi.pdf")
 plt.show()

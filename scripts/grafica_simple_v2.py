@@ -9,6 +9,6 @@ plt.plot(x,t,'r.',ms='15')
 plt.xlabel(r'$x\,[\mathrm{m}]$',size=15)
 plt.ylabel(r'$t\,[\mathrm{s}]$', size=15)
 
-plt.savefig('grafica_simple_v2.pdf', bbox_inches='tight')
+#plt.savefig('../../figuras/grafica_simple_v2.pdf', bbox_inches='tight')
 plt.show()
 
