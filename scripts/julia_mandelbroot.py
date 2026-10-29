@@ -115,5 +115,5 @@ if __name__ == "__main__":
   ax2.tick_params(axis="both", which="major", labelsize=13, colors="white")
 
   plt.tight_layout()
-  plt.savefig('../Clases/Herramientas_Python/julia_manderboot.pdf', bbox_inches='tight')
+  plt.savefig('../../figuras/julia_manderboot.pdf', bbox_inches='tight')
   plt.show()

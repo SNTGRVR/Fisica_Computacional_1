@@ -3,7 +3,7 @@ import scipy as sp
 import matplotlib.pyplot as plt
 
 # Cargar datos del archivo
-datos = np.loadtxt("velocidades.txt")
+datos = np.loadtxt("../data/velocidades.txt")
 t = datos[:, 0]  # Tiempo en s
 v = datos[:, 1]  # Velocidad en m/s
 

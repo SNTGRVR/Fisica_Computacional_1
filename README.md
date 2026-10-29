@@ -8,9 +8,12 @@ En este espacio se encuentran alojados los materiales de clase, cuadernos de Jup
 
 ## 📁 Estructura del Repositorio
 
-- `Clases/`: Notas teóricas, diapositivas y guías del curso.
-- `Codigo/`: Cuadernos interactivos de Jupyter (`.ipynb`) explicativos, algoritmos y scripts complementarios en Python (`.py`).
-- `Tareas/`: Enunciados de talleres y entregables para el curso.
+* **[`data/`](./data/)**: Conjuntos de datos (`.txt`, `.csv`) utilizados para los ejercicios del curso.
+* **[`figuras/`](./figuras/)**: Gráficas, diagramas y recursos visuales (`.png`, `.jpg`, `.pdf`) incluidos en las notas y notebooks.
+* **[`scripts/`](./scripts/)**: Scripts ejecutables en Python para simulaciones, cálculo numérico y generación de gráficos.
+* **[`notebooks/`](./notebooks/)**: Cuadernos interactivos de Jupyter con las notas de las clases.
+* **[`lectures/`](./lectures/)**: Notas del curso en formato LaTeX.
+* **[`tareas/`](./tareas/)**: Enunciados de talleres y entregables para el curso.
 
 ---
 

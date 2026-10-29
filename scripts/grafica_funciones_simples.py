@@ -17,7 +17,7 @@ plt.xlabel(r'$\theta$', size=15)
 plt.legend(loc='upper right')
 plt.xlim(-2*np.pi, 2*np.pi)
 plt.ylim(-1,1)
-plt.savefig('senocoseno.pdf', bbox_inches='tight')
+#plt.savefig('../../figuras/senocoseno.pdf', bbox_inches='tight')
 
 #----------
 # figura 2
@@ -33,7 +33,7 @@ plt.plot(x,sqrtx,'b-',lw ='3.',label= r'$\sqrt{x}$')
 plt.xlabel(r'$x$', size=15)
 plt.legend(loc='upper left')
 plt.xlim(0, 100)
-plt.savefig('log10sqrt.pdf', bbox_inches='tight')
+#plt.savefig('../../figuras/log10sqrt.pdf', bbox_inches='tight')
 
 
 plt.show()

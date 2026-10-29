@@ -122,6 +122,6 @@ if __name__ == "__main__":
     ax3.legend(loc='upper right', fontsize=8)
 
     fig.tight_layout()
-    plt.savefig('../Clases/Herramientas_Python/drunk.pdf', bbox_inches='tight')
+    #plt.savefig('../../figuras/drunk.pdf', bbox_inches='tight')
 
     plt.show()

@@ -45,5 +45,5 @@ if __name__== "__main__":
 
     plt.tight_layout()
 
-    plt.savefig("../Clases/Herramientas_Python/random.pdf", bbox_inches='tight')
+    #plt.savefig("../../figuras/random.pdf", bbox_inches='tight')
     plt.show()

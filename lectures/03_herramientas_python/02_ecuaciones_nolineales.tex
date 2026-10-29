@@ -375,13 +375,13 @@ if __name__ == "__main__":
         print(f"\n[Error] El alcance deseado de {xmaximo} m es físicamente inalcanzable.")
         print(f"El alcance máximo posible con v0={v0} m/s y y0={y0} m es de {alcance_max_posible:.2f} m.")    
     
-    #plt.savefig('../Clases/Herramientas_Python/alcance_vs_angulo.pdf', bbox_inches='tight')
+    #plt.savefig('../../figuras/alcance_vs_angulo.pdf', bbox_inches='tight')
     plt.show() 
 \end{lstlisting}
 %
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{alcance_vs_angulo.pdf}
+    \includegraphics[width=0.8\textwidth]{../../figuras/alcance_vs_angulo.pdf}
     \caption{Alcance máximo en función del ángulo de lanzamiento.}
 \end{figure}
 
@@ -440,14 +440,14 @@ for nombre, raiz, iters, nfev in metodos:
     residuo = abs(f(raiz))
     print(f"{nombre:<18} | {raiz:<14.8f} | {residuo:<14.2e} | {iters:<12} | {nfev:<14}")
 
-plt.savefig('../Clases/Herramientas_Python/xlnx.pdf', bbox_inches='tight')
+#plt.savefig('../../figuras/xlnx.pdf', bbox_inches='tight')
 plt.show()
 \end{lstlisting}
 %  
 %
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{xlnx.pdf}
+    \includegraphics[width=0.8\textwidth]{../../figuras/xlnx.pdf}
     \caption{Gráfica de $x$ y $-\ln(x)$ vs $x$.}
 \end{figure}
 %
@@ -590,7 +590,7 @@ plt.grid(True, linestyle=':', alpha=0.7)
 plt.legend(fontsize=20)
 plt.tick_params(axis='both', which='both', labelsize=17) # tamño de los ejes
 plt.tight_layout()   
-plt.savefig('../Clases/Herramientas_Python/polinomio.pdf', bbox_inches='tight')
+plt.savefig('../../figuras/polinomio.pdf', bbox_inches='tight')
 
 plt.show()
 \end{lstlisting}
@@ -599,7 +599,7 @@ plt.show()
 %
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{polinomio.pdf}
+    \includegraphics[width=0.8\textwidth]{../../figuras/polinomio.pdf}
     \caption{Gráfica de $p(x) = 3x^7 - 4x^5 + 6x^2 - x + 3$ vs $x$.}
 \end{figure}
 %

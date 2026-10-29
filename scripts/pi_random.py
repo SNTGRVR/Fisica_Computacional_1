@@ -30,6 +30,6 @@ if __name__ == "__main__":
   plt.title(f"Monte Carlo: $\\pi \\approx {pi_aprox:.4f}$ (N = {N}) (M = {M})")
   plt.tick_params (axis='both', which='both', labelsize =12)
   plt.tight_layout()
-  plt.savefig('../Clases/Herramientas_Python/pirandom.pdf', bbox_inches='tight')
+  plt.savefig('../../figuras/pirandom.pdf', bbox_inches='tight')
 
   plt.show()

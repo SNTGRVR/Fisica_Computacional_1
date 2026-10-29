@@ -54,5 +54,5 @@ plt.grid(True)
 plt.legend()
 plt.ylim(-0.5,2)
 plt.xlim(0,1)
-plt.savefig('parabolico.pdf', bbox_inches='tight') #guardar
+#plt.savefig('../../figuras/parabolico.pdf', bbox_inches='tight') #guardar
 plt.show()  # Despliega la ventana con la gráfica

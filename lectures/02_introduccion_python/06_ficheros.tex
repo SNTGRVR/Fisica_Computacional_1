@@ -236,7 +236,8 @@ A continuación se detallan los métodos elementales para la manipulación de in
 \end{itemize}
 
 \subsection*{\textcolor{blue}{\textit{Ejemplo:}}}
-Consideremos como ejemplo un archivo de entrada \texttt{masavolumen.txt} que contiene la información de la Tabla~\ref{tab:datos_entrada}:
+Consideremos como ejemplo un archivo de entrada 
+\texttt{masavolumen.txt} que contiene la información de la Tabla~\ref{tab:datos_entrada}:
 
 \begin{table}[h!]
 \centering
@@ -259,8 +260,8 @@ calcula la densidad ($\rho = m/V$) y genera un nuevo archivo \texttt{resultados.
 \begin{lstlisting}[language=Python, captionpos=t, title=\texttt{in\_out.py}]
 """En este programa se ilustra el uso de la lectura y la escritura de ficheros"""
 
-archivo_entrada='masavolumen.txt'
-archivo_salida='masavolumendensidad.txt'
+archivo_entrada='../data/masavolumen.txt'
+archivo_salida='../data/masavolumendensidad.txt'
 
 #abrimos los archivos
 with open(archivo_entrada, 'r') as f_in, open(archivo_salida, 'w') as f_out:
@@ -304,7 +305,7 @@ esos datos y se calcula la razpkn entra la masa inercial y gravitacional.
 import numpy as np
 import matplotlib.pyplot as plt
 
-datos= np.loadtxt('datosL1.txt')
+datos= np.loadtxt('../data/datosL1.txt')
 l = datos[:,0] # la primera columna es la longitud
 t = datos[:,1] # la segunda columna es el tiempo
 #calculo de la masa gravitacional/ masa inercial
@@ -325,7 +326,7 @@ plt.show()
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.65\textwidth]{mgvsmi.pdf}
+    \includegraphics[width=0.65\textwidth]{../../figuras/mgvsmi.pdf}
     \caption{Prueba experimental del principio de equivalencia.}
 \end{figure}
 
@@ -360,7 +361,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Cargar las columnas directamente en variables independientes
-frequency, mic1, mic2 = np.loadtxt('datosmicrofono.txt', unpack=True)
+frequency, mic1, mic2 = np.loadtxt('../data/datosmicrofono.txt', unpack=True)
 
 # graficar
 plt.figure(figsize=(8, 5))
@@ -377,7 +378,7 @@ plt.show()
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{microfono.pdf}
+    \includegraphics[width=0.8\textwidth]{../../figuras/microfono.pdf}
    \caption{Datos de los micrófonos.} 
    \label{fig:micro}
 \end{figure}

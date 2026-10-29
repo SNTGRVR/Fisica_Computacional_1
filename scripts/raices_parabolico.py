@@ -68,5 +68,5 @@ if __name__ == "__main__":
         print(f"\n[Error] El alcance deseado de {xmaximo} m es físicamente inalcanzable.")
         print(f"El alcance máximo posible con v0={v0} m/s y y0={y0} m es de {alcance_max_posible:.2f} m.")    
 
-    plt.savefig('../Clases/Herramientas_Python/alcance_vs_angulo.pdf', bbox_inches='tight')
+    #plt.savefig('../figuras/alcance_vs_angulo.pdf', bbox_inches='tight')
     plt.show()               

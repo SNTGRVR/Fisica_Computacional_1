@@ -24,6 +24,6 @@ plt.grid(True, linestyle=':', alpha=0.7)
 plt.legend(fontsize=20)
 plt.tick_params(axis='both', which='both', labelsize=17) # tamño de los ejes
 plt.tight_layout()   
-plt.savefig('../Clases/Herramientas_Python/polinomio.pdf', bbox_inches='tight')
+plt.savefig('../../figuras/polinomio.pdf/polinomio.pdf', bbox_inches='tight')
 
 plt.show()
